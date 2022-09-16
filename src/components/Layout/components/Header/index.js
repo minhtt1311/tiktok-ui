@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass, faEllipsisVertical, faEarthAsia, faCircleQuestion, faKeyboard } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faSpinner, faMagnifyingGlass, faEllipsisVertical, faEarthAsia, faCircleQuestion, faKeyboard, faUpload, faMessage, faUser, faCoins, faGear, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { Wrapper as PopperWrapper } from "~/components/Popper"
 
 import Button from '~/components/Button';
-import Tippy from '@tippyjs/react/headless';
+import HeadlessTippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import AccountItem from '../../../AccountItem';
@@ -49,6 +52,7 @@ const MENU_ITEMS = [
 
 
 function Header() {
+    const currentUser = true
     const [searchResult, setSearchResult] = useState([])
     useEffect(() => {
         setTimeout(() => {
@@ -58,9 +62,43 @@ function Header() {
 
     //handleLogic
     const handleMenuChange = (menuItem) => {
+        switch (menuItem.type) {
+            case 'language':
 
 
+
+                break
+            default:
+        }
     }
+
+    const userMenu = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'View profile',
+            to: '/@minh'
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCoins} />,
+            title: 'Get coins',
+            to: '/coin'
+        },
+        {
+            icon: <FontAwesomeIcon icon={faGear} />,
+            title: 'Settings',
+            to: '/Settings'
+        },
+
+        ...MENU_ITEMS,
+        {
+            icon: <FontAwesomeIcon icon={faSignOut} />,
+            title: 'Log out',
+            to: '/logout',
+            separate: true,
+        },
+
+    ]
+
     return (
 
         < header className={cx('wrapper')} >
@@ -68,7 +106,7 @@ function Header() {
                 <div className={cx('logo')}>
                     <img src={images.logo} alt="tikttok" />
                 </div>
-                <Tippy
+                <HeadlessTippy
                     visible={searchResult.length > 0}
 
                     render={attrs => (
@@ -96,22 +134,47 @@ function Header() {
 
                         </button>
                     </div>
-                </Tippy>
+                </HeadlessTippy>
+
                 <div className={cx('action')}>
-                    <Button text >Upload</Button>
-                    <Button primary >Login</Button>
+                    {currentUser ? (
+                        <>
+                            <Tippy delay={[0, 200]} content="Upload video" placement='bottom' >
+                                <div className={cx('action-btn')}>
+                                    <FontAwesomeIcon icon={faUpload} />
+                                </div>
+
+                            </Tippy>
+
+
+                        </>
+                    ) : (
+
+                        <>
+                            <Button className={cx('action-btn')} text >Upload</Button>
+                            <Button primary >Login</Button>
 
 
 
-                    <Menu items={MENU_ITEMS} onChange={handleMenuChange} >
-                        <button className={cx('more-btn')}>
-                            <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>
-                        </button>
+
+
+
+                        </>
+                    )
+                    }
+                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange} >
+                        {currentUser ? (
+                            <img className={cx('user-avatar')} src="https://nucuoimekong.com/wp-content/uploads/buc-anh-dep-can-bang-sang-tot-1.jpg" alt="a" />
+                        ) : (
+
+                            <button className={cx('more-btn')}>
+                                <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>
+                            </button>
+                        )}
 
                     </Menu>
-
-
                 </div>
+
             </div >
         </ header >
     )
