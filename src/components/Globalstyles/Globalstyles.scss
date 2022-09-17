@@ -1,5 +1,4 @@
 @import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,500&family=Roboto:ital,wght@0,400;0,500;1,400;1,500&display=swap');
 
 * {
     box-sizing: border-box;
@@ -19,7 +18,7 @@ html {
     font-size: 62.5%;
 }
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'ProxinaNova', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
 }
@@ -33,6 +32,31 @@ a[href] {
     color: var(--text-color);
     text-decoration: none;
 }
+
+//font
+@font-face {
+    font-family: ProxinaNova;
+    src: url('/assets/fonts/Proxima-Nova-Regular.woff2');
+    font-weight: 400;
+}
+@font-face {
+    font-family: ProxinaNova;
+    src: url('/assets/fonts/ProximaNova-Semibold.woff2');
+    font-weight: 600;
+}
+@font-face {
+    font-family: ProxinaNova;
+    src: url('/assets/fonts/Proxima-Nova-Bold.woff2');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: SofiaPro;
+    src: url('/assets/fonts/Proxima-Nova-Bold.woff');
+    font-weight: 700;
+}
+
+//
 body {
     .tippy-box {
         background-color: rgba(84, 84, 84, 0.92);
